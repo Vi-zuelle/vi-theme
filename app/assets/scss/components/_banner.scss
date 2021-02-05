@@ -1,0 +1,11 @@
+// =================== component banner - inspired from Le Wagon library
+
+.home-banner {
+  background-image: url('https://picsum.photos/200/300/?blur');
+  background-size: cover;
+  height: 100vh;
+  // width: 100%;
+  color: #eee;
+  text-align: center;
+  padding-top: 40vh;
+}
