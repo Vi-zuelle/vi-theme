@@ -1,15 +1,35 @@
 {
   "name": "vi-wp-template",
+  "author": "Vi",
   "version": "1.0.0",
   "main": "gulpfile.js",
   "description": "Wordpress theme custom made by Vi",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://opensource.org/licenses/MIT"
+    }
+  ],
+  "browserslist": [
+    "last 2 versions",
+    "android 4",
+    "opera 12"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Vi-zuelle/vi-theme.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Vi-zuelle/vi-theme/issues"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Vi",
+  "engines": {
+    "node": ">= 8.0.0"
+  },
   "dependencies": {
     "browser-sync": "^2.26.13",
-    "gulp": "^3.9.1",
     "gulp-autoprefixer": "^7.0.1",
     "gulp-concat": "^2.6.1",
     "gulp-filter": "^6.0.0",
@@ -26,5 +46,7 @@
     "gulp-wp-pot": "^2.5.0",
     "stable": "^0.1.8"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "gulp": "^4.0.0"
+  }
 }

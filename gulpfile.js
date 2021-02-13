@@ -16,8 +16,9 @@
  *      9. Generates .pot file for i18n and l10n.
  *
  * @author Ahmad Awais (@ahmadawais)
- * completed by Vi
- * @version 1.0.4
+ * completed and upgraded by Vi
+ * Now fit with gulp v4.0.2
+ * @version 1.1.0
  */
 
 /**
@@ -169,7 +170,7 @@ gulp.task( 'browser-sync', function() {
  *    6. Minifies the CSS file and generates style.min.css
  *    7. Injects CSS or reloads the browser via browserSync
  */
- gulp.task('styles', function () {
+ gulp.task('styles', function (done) {
     gulp.src( styleSRC )
     .pipe( sourcemaps.init() )
     .pipe( sass( {
@@ -204,6 +205,7 @@ gulp.task( 'browser-sync', function() {
     .pipe( filter( '**/*.css' ) ) // Filtering stream to only css files
     .pipe( browserSync.stream() )// Reloads style.min.css if that is enqueued.
     .pipe( notify( { message: 'TASK: "styles" Completed! 💯', onLast: true } ) )
+    done();
  });
 
 
@@ -218,7 +220,7 @@ gulp.task( 'browser-sync', function() {
   *     3. Renames the JS file with suffix .min.js
   *     4. Uglifes/Minifies the JS file and generates vendors.min.js
   */
- gulp.task( 'vendorsJs', function() {
+ gulp.task( 'vendorsJs', function(done) {
   gulp.src( jsVendorSRC )
     .pipe( concat( jsVendorFile + '.js' ) )
     .pipe( lineec() ) // Consistent Line Endings for non UNIX systems.
@@ -231,6 +233,7 @@ gulp.task( 'browser-sync', function() {
     .pipe( lineec() ) // Consistent Line Endings for non UNIX systems.
     .pipe( gulp.dest( jsVendorDestination ) )
     .pipe( notify( { message: 'TASK: "vendorsJs" Completed! 💯', onLast: true } ) );
+    done();
  });
 
 
@@ -245,7 +248,7 @@ gulp.task( 'browser-sync', function() {
   *     3. Renames the JS file with suffix .min.js
   *     4. Uglifes/Minifies the JS file and generates custom.min.js
   */
- gulp.task( 'customJS', function() {
+ gulp.task( 'customJS', function(done) {
     gulp.src( jsCustomSRC )
     .pipe( concat( jsCustomFile + '.js' ) )
     .pipe( lineec() ) // Consistent Line Endings for non UNIX systems.
@@ -258,6 +261,7 @@ gulp.task( 'browser-sync', function() {
     .pipe( lineec() ) // Consistent Line Endings for non UNIX systems.
     .pipe( gulp.dest( jsCustomDestination ) )
     .pipe( notify( { message: 'TASK: "customJs" Completed! 💯', onLast: true } ) );
+    done();
  });
 
 
@@ -274,7 +278,7 @@ gulp.task( 'browser-sync', function() {
   * This task will run only once, if you want to run it
   * again, do it with the command `gulp images`.
   */
- gulp.task( 'images', function() {
+ gulp.task( 'images', function(done) {
   gulp.src( imagesSRC )
     .pipe( imagemin( {
           progressive: true,
@@ -284,6 +288,7 @@ gulp.task( 'browser-sync', function() {
         } ) )
     .pipe(gulp.dest( imagesDestination ))
     .pipe( notify( { message: 'TASK: "images" Completed! 💯', onLast: true } ) );
+    done();
  });
 
 
@@ -317,12 +322,13 @@ gulp.task( 'browser-sync', function() {
   *
   * Watches for file changes and runs specific tasks.
   */
- gulp.task( 'default', ['styles', 'vendorsJs', 'customJS', 'images', 'browser-sync'], function () {
+ gulp.task( 'default', gulp.series('styles', 'vendorsJs', 'customJS', 'images', 'browser-sync', function(done) {
   gulp.watch( projectPHPWatchFiles, reload ); // Reload on PHP file changes.
   gulp.watch( styleWatchFiles, [ 'styles' ] ); // Reload on SCSS file changes.
   gulp.watch( vendorJSWatchFiles, [ 'vendorsJs', reload ] ); // Reload on vendorsJs file changes.
   gulp.watch( customJSWatchFiles, [ 'customJS', reload ] ); // Reload on customJS file changes.
- });
+  done();
+ }));
 
 
 gulp.task('hello', function(cb) {
