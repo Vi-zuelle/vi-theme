@@ -53,5 +53,127 @@ add_shortcode('adresse-email', 'shortcode_adresse_email');
 
 
 
+// =============== Custom settings section in the admin panel
+// Custom Settings menu in panel
+function custom_settings_add_menu() {
+  add_menu_page( 'Custom Settings', 'Custom Settings', 'manage_options', 'custom-settings', 'custom_settings_page', null, 99 );
+}
+add_action( 'admin_menu', 'custom_settings_add_menu' );
+// Build the page - section and save changes button
+function custom_settings_page() { ?>
+  <div class="wrap">
+    <h1>Custom Settings</h1>
+    <form method="post" action="options.php">
+      <?php
+        settings_fields( 'section' );
+        do_settings_sections( 'theme-options' );
+        submit_button();
+      ?>
+    </form>
+  </div>
+<?php }
+// Build input field for TWITTER
+function setting_twitter() { ?>
+  <input type="text" name="twitter" id="twitter" value="<?php echo get_option( 'twitter' ); ?>" />
+<?php }
+// Build input field for INSTAGRAM
+function setting_instagram() { ?>
+  <input type="text" name="instagram" id="instagram" value="<?php echo get_option( 'instagram' ); ?>" />
+<?php }
+// Build input field for FACEBOOK
+function setting_facebook() { ?>
+  <input type="text" name="facebook" id="facebook" value="<?php echo get_option( 'facebook' ); ?>" />
+<?php }
+// Page setup: show, accept and save
+function custom_settings_page_setup() {
+  add_settings_section( 'section', 'All Settings', null, 'theme-options' );
+
+  add_settings_field( 'twitter', 'Twitter URL', 'setting_twitter', 'theme-options', 'section' );
+  add_settings_field( 'instagram', 'Instagram URL', 'setting_instagram', 'theme-options', 'section' );
+  add_settings_field( 'facebook', 'Facebook URL', 'setting_facebook', 'theme-options', 'section' );
+
+  register_setting( 'section', 'twitter' );
+  register_setting( 'section', 'instagram' );
+  register_setting( 'section', 'facebook' );
+}
+add_action( 'admin_init', 'custom_settings_page_setup' );
+// =============== .Custom settings section in the admin panel
+
+
+// =============== Make sure basic setup stay
+if(!function_exists('_tk_setup')):
+  function _tk_setup() {
+    global $cap, $content_width;
+    add_theme_support('html5', array('comment-list', 'comment-form', 'search-form', 'gallery', 'caption'));
+    add_editor_style();
+    add_theme_support('automatic-feed-links');
+    add_theme_support('post-thumbnails');
+    add_theme_support('post-formats', array( 'aside', 'image', 'video', 'quote', 'link'));
+    add_theme_support('custom-background', apply_filters('_tk_custom_background_args', array(
+      'default-color' => 'ffffff',
+      'default-image' => '',
+    )));
+    load_theme_textdomain( '_tk', get_template_directory_uri() . '/languages' );
+
+    register_nav_menus(array(
+      'header'  => __('header')
+    ));
+  }
+endif;
+add_action('after_setup_theme', '_tk_setup');
+// =============== .Make sure basic setup stay
+
+
+// =============== Escapes HTML for output - TO DO
+// With this function, we can wrap any variable in the escape() function, and the HTML entities will be protected
+function escape($html) {
+  return htmlspecialchars($html, ENT_QUOTES | ENT_SUBSTITUTE, "UTF-8", true);
+}
+// =============== .Escapes HTML for output
+
+
+// =============== Change the excerpt length
+function my_excerpt_length($length){
+  return 40;
+}
+add_filter('excerpt_length', 'my_excerpt_length');
+// =============== .Change the excerpt length
+
+
+//WXPML
+function removeHeadLinks() {
+  remove_action('wp_head', 'rsd_link');
+  remove_action('wp_head', 'wlwmanifest_link');
+}
+add_action('init', 'removeHeadLinks');
+
+
+// Supprimer les accents des fichiers uploadés
+add_filter('sanitize_file_name', 'remove_accents');
+
+// // Remove head link
+// remove_action('wp_head', 'rsd_link');
+// remove_action('wp_head', 'wlwmanifest_link');
+// remove_action('wp_head', 'wp_generator');
+// remove_action('wp_head', 'wp_shortlink_wp_head');
+// remove_action('wp_head', 'feed_links', 2);
+// remove_action('wp_head', 'feed_links_extra', 3);
+
+
+// =============== Remove welcome panel in Dashboard
+remove_action('welcome_panel', 'wp_welcome_panel');
+// =============== .Remove welcome panel in Dashboard
+
+
+// =============== Disable WordPress Admin Bar for all users */
+add_filter( 'show_admin_bar', '__return_false' );
+// =============== .Disable WordPress Admin Bar for all users */
+
+
+// =============== Next function
+
+// =============== .Next function
+
+
 
 ?>

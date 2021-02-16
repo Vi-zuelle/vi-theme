@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-md navbar-light fixed-top smart-scroll">
   <a class="navbar-brand" href="<?php echo get_bloginfo( 'wpurl' );?>">
-    <img src="<?= get_template_directory_uri().'/assets/img/raw/logo-tgnj.svg'?>" alt="">
+    <img src="<?= get_template_directory_uri().'/assets/img/raw/logo-demo.png'?>" alt="">
   </a>
   <!-- <a class="navbar-brand" href="#">Navbar</a> -->
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
