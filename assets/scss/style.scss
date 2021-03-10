@@ -1,3 +1,20 @@
+/*
+Theme Name: Vi theme
+Theme URI:
+Author: Vi
+Author URI:
+Description:
+Version: 0.1
+Tags: SASS, bootstrap
+Text Domain: demoh
+*/
+
+
+
+
+
+
+
 // Graphical variables
 // @import "config/bootstrap_variables";
 @import "config/colors";
@@ -14,7 +31,7 @@
 @import "components/avatar";
 @import "components/banner";
 @import "components/card";
-@import "components/navbar";
+@import "./components/navbar.scss";
 @import "pages/home";
 @import "pages/index";
 @import "pages/layout";

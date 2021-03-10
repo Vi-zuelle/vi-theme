@@ -15,10 +15,11 @@
 .card-trip p{font-size:12px;opacity:.7;margin:0}
 .card-trip .card-trip-infos{padding:16px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;-webkit-box-align:end;-webkit-align-items:flex-end;-ms-flex-align:end;align-items:flex-end;position:relative}
 .card-trip-infos .card-trip-user{position:absolute;right:16px;top:-20px;width:40px}
-.navbar-lewagon{-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;background-color:transparent;-webkit-transition:.5s background-color ease;transition:.5s background-color ease}
-.navbar-lewagon-white{background-color:white}
-.navbar-lewagon .navbar-collapse{-webkit-box-flex:0;-webkit-flex-grow:0;-ms-flex-positive:0;flex-grow:0}
-.navbar-lewagon .navbar-brand img{width:100px}
+.navbar{background:-webkit-gradient(linear,left bottom,left top,from(rgba(255,255,255,0)),color-stop(4%,white));background:-webkit-linear-gradient(bottom,rgba(255,255,255,0) 0,white 4%);background:linear-gradient(0,rgba(255,255,255,0) 0,white 4%)}
+.navbar .navbar-brand img{width:50px;height:50px}
+.navbar .navbar-collapse ul{text-align:left}
+.navbar .navbar-collapse ul li{padding:2%;color:#333332}
+.navbar .navbar-collapse ul .current_page_item{font-weight:800}
 body{font-family:Raleway,Arial,sans-serif;color:#333332;text-align:center !important;text-decoration:none}
 h1,.h1,h2,.h2,h3,.h3,h4,.h4,h5,.h5,h6,.h6{margin-top:0;margin-bottom:0;font-family:Raleway,Arial,sans-serif;font-weight:200;color:#333332}
 h1,.h1{font-size:72px;padding:6%}
@@ -95,3 +96,6 @@ img{width:100%}
 .container-fluid{position:relative;margin:0;padding:0}
 .container-fluid .container{position:relative;margin:0 auto;padding:90px 0;width:100%;max-width:1180px}
 .container-fluid .row{position:relative;margin:0;padding:0}
+@media(min-width:768px){.navbar{background:-webkit-gradient(linear,left bottom,left top,from(rgba(255,255,255,0)),color-stop(32%,white));background:-webkit-linear-gradient(bottom,rgba(255,255,255,0) 0,white 32%);background:linear-gradient(0,rgba(255,255,255,0) 0,white 32%)}
+.navbar .navbar-collapse ul li{padding:14%}
+}

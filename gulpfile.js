@@ -45,8 +45,8 @@ var lastTranslator          = ''; // Last translator Email ID.
 var team                    = ''; // Team's Email ID.
 
 // Style related.
-var styleSRC                = './app/assets/scss/style.scss'; // Path to main .scss file.
-var styleDestination        = './app/assets/css'; // Path to place the compiled CSS file.
+var styleSRC                = './assets/scss/style.scss'; // Path to main .scss file.
+var styleDestination        = './assets/css'; // Path to place the compiled CSS file.
 // Default set to root folder.
 
 // JS Vendor related.
@@ -132,7 +132,7 @@ var sort         = require('gulp-sort'); // Recommended to prevent unnecessary c
  *    3. You may define a custom port
  *    4. You may want to stop the browser from openning automatically
  */
-gulp.task( 'browser-sync', function() {
+gulp.task( 'browser-sync', function(done) {
   browserSync.init( {
 
     // For more options
@@ -153,6 +153,7 @@ gulp.task( 'browser-sync', function() {
     // port: 7000,
 
   } );
+  done();
 });
 
 
@@ -248,7 +249,7 @@ gulp.task( 'browser-sync', function() {
   *     3. Renames the JS file with suffix .min.js
   *     4. Uglifes/Minifies the JS file and generates custom.min.js
   */
- gulp.task( 'customJS', function(done) {
+  gulp.task( 'customJS', function(done) {
     gulp.src( jsCustomSRC )
     .pipe( concat( jsCustomFile + '.js' ) )
     .pipe( lineec() ) // Consistent Line Endings for non UNIX systems.
@@ -262,7 +263,7 @@ gulp.task( 'browser-sync', function() {
     .pipe( gulp.dest( jsCustomDestination ) )
     .pipe( notify( { message: 'TASK: "customJs" Completed! 💯', onLast: true } ) );
     done();
- });
+  });
 
 
  /**
@@ -322,13 +323,20 @@ gulp.task( 'browser-sync', function() {
   *
   * Watches for file changes and runs specific tasks.
   */
- gulp.task( 'default', gulp.series('styles', 'vendorsJs', 'customJS', 'images', 'browser-sync', function(done) {
+ gulp.task( 'default', gulp.series('styles', 'vendorsJs', 'customJS', 'images', 'browser-sync', function() {
   gulp.watch( projectPHPWatchFiles, reload ); // Reload on PHP file changes.
-  gulp.watch( styleWatchFiles, [ 'styles' ] ); // Reload on SCSS file changes.
-  gulp.watch( vendorJSWatchFiles, [ 'vendorsJs', reload ] ); // Reload on vendorsJs file changes.
-  gulp.watch( customJSWatchFiles, [ 'customJS', reload ] ); // Reload on customJS file changes.
-  done();
+  gulp.watch( styleWatchFiles, gulp.series('styles')); // Reload on SCSS file changes.
+  gulp.watch( vendorJSWatchFiles, gulp.series('vendorsJs', reload)); // Reload on vendorsJs file changes.
+  gulp.watch( customJSWatchFiles, gulp.series('customJS', reload)); // Reload on customJS file changes.
  }));
+
+// gulp.task( 'default', ['styles', 'vendorsJs', 'customJS', 'images', 'browser-sync'], function () {
+//   gulp.watch( projectPHPWatchFiles, reload ); // Reload on PHP file changes.
+//   gulp.watch( styleWatchFiles, [ 'styles' ] ); // Reload on SCSS file changes.
+//   gulp.watch( vendorJSWatchFiles, [ 'vendorsJs', reload ] ); // Reload on vendorsJs file changes.
+//   gulp.watch( customJSWatchFiles, [ 'customJS', reload ] ); // Reload on customJS file changes.
+//  });
+
 
 
 gulp.task('hello', function(cb) {

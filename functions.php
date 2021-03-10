@@ -1,16 +1,62 @@
 <?php
 
+// =============== WP basic setup
+if ( ! function_exists( 'vi-theme_setup' ) ) :
+  /**
+   * Sets up theme defaults and registers support for various WordPress features.
+   *
+   * Note that this function is hooked into the after_setup_theme hook, which runs
+   * before the init hook. The init hook is too late for some features, such as indicating
+   * support post thumbnails.
+   */
+  function vitheme_setup() {
+
+      /**
+       * Make theme available for translation.
+       * Translations can be placed in the /languages/ directory.
+       */
+      load_theme_textdomain( 'vi-theme', get_template_directory() . '/languages' );
+
+      /**
+       * Add default posts and comments RSS feed links to <head>.
+       */
+      add_theme_support( 'automatic-feed-links' );
+
+      /**
+       * Enable support for post thumbnails and featured images.
+       */
+      add_theme_support( 'post-thumbnails' );
+
+      /**
+       * Add support for two custom navigation menus.
+       */
+      register_nav_menus( array(
+          'primary'   => __( 'Primary Menu', 'vi-theme' ),
+          'secondary' => __('Secondary Menu', 'vi-theme' )
+      ) );
+
+      /**
+       * Enable support for the following post formats:
+       * aside, gallery, quote, image, and video
+       */
+      add_theme_support( 'post-formats', array ( 'aside', 'gallery', 'quote', 'image', 'video' ) );
+  }
+  endif; // vi-theme_setup
+  add_action( 'after_setup_theme', 'vitheme_setup' );
+// =============== .WP basic setup
+
+
 // =============== Scripts and stylesheets
-function scripts() {
+function vitheme_scripts() {
   // wp_enqueue_style( 'Raleway', 'https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap' );
-  wp_enqueue_style( 'style', get_template_directory_uri().'/app/assets/stylesheets/style.css' );
+  wp_enqueue_style( 'style', get_template_directory_uri().'/assets/css/style.min.css' );
   wp_enqueue_style('fontawesome', 'https://use.fontawesome.com/releases/v5.2.0/css/all.css');
   wp_enqueue_style( 'boostrap', 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css' );
 
-  wp_enqueue_script( 'customjs', get_template_directory_uri() . '/app/assets/javascript/custom.js', array('jquery'), '', true );
+  wp_enqueue_script( 'customjs', get_template_directory_uri().'/assets/javascript/custom.js', '', '', true );
   wp_enqueue_script( 'bootstrap', 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js', array('jquery'), '', true );
 }
-add_action( 'wp_enqueue_scripts', 'scripts' );
+add_action( 'wp_enqueue_scripts', 'vitheme_scripts' );
 // =============== .Scripts and stylesheets
 
 
